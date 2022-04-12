@@ -1,0 +1,36 @@
+{
+    "variables": {
+        "machine_type": "",
+        "project_id": ""
+    },
+    "builders": [
+        {
+            "type": "googlecompute",
+            "project_id": "{{user `project_id`}}",
+            "source_image": "debian-9-stretch-v20200805",
+            "zone": "us-central1-a",
+            "account_file": "accounts.json",
+            "ssh_username": "maharamgcp",
+            "machine_type": "{{user `machine_type`}}",
+            "image_family": "my-web-family",
+            "image_name": "packer-website-image-{{timestamp}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "sudo apt update -y",
+                "sudo apt install apache2 git -y",
+                "sudo rm -rf /var/www/html/index.html",
+                "sudo git clone https://github.com/devopswithcloud/static-website.git",
+                "sudo cp -r static-website/* /var/www/html"
+            ]
+        }
+    ]
+}
+
+
+
+
+
