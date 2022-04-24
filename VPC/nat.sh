@@ -8,3 +8,7 @@ gcloud compute networks subnets create subnet-b --network=my-custom-network --ra
 
 gcloud compute instances create instance-1a --zone=us-central1-a --machine-type=f1-micro --subnet=subnet-a --no-address
 gcloud compute instances create instance-1b --zone=us-central1-a --machine-type=f1-micro --subnet=subnet-a --no-address
+
+
+# Open Firewall rule for ssh 
+gcloud compute  firewall-rules create allow-ssh --direction=INGRESS --priority=1000 --network=my-custom-network --action=ALLOW --rules=tcp:22 --source-ranges=0.0.0.0/0
