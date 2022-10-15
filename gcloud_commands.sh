@@ -64,3 +64,15 @@ gcloud components list
 
 * gcloud compute instances create instance-3 --zone=us-central1-a --machine-type=f1-micro --subnet=subnet-b --no-address
 
+
+
+# TO get IAM across ORG 
+
+gcloud organizations list
+
+# you will get ORGANIZATION_ID
+
+# then use the below command 
+
+gcloud organizations get-iam-policy ORGANIZATION_ID --flatten="bindings[].members" --format="table(bindings.members,bindings.role)" --filter "user"
+
