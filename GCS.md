@@ -41,3 +41,20 @@ gsutil cp gs://smooth-kiln-376817-multi/logfile0603.txt gs://smooth-kiln-376817-
 gsutil ls <bucketname>
 gsutil ls gs://smooth-kiln-376817-multi/
   
+### Create a Service account using CLI
+gcloud iam service-accounts create instancestorage --display-name="Instance to storage"
+
+### Create a key for the service account account created 
+gcloud iam service-accounts keys create key.json --iam-account=instancestorage@smooth-kiln-376817.iam.gserviceaccount.com 
+
+### Add service account storage viewer role
+gcloud projects add-iam-policy-binding --member=instancestorage@smooth-kiln-376817.iam.gserviceaccount.com --role=roles/storage.objectViewer
+
+### Set the service account in the VM
+gcloud config set account instancestorage@smooth-kiln-376817.iam.gserviceaccount.com
+  
+## Authenticate the service account into the vm.
+gcloud auth activate-service-account instancestorage@smooth-kiln-376817.iam.gserviceaccount.com --key-file=key.json
+  
+## Verify 
+gsutil commands 
