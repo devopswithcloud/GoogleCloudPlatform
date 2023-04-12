@@ -46,6 +46,8 @@ mysql -u siva -h PUBLICIPOFVM -p
 ERROR 2003 (HY000): Can't connect to MySQL server on '34.125.93.52:3306' (111)
 
 vi /etc/mysql/mysql.conf.d/mysqld.cnf
+comment the below line
+#bind-address           = 127.0.0.1
 
 [mysqld]
 log-bin=mysql-bin
