@@ -25,3 +25,12 @@ gcloud compute instances create instance-2 --zone us-central1-a --subnet=subnet-
 
 # Create instance-3 in subnet-b
 gcloud compute instances create instance-3 --zone us-central1-a --subnet=subnet-b --machine-type=f1-micro --no-address
+
+echo "Creating a firewall for SSH"
+gcloud compute firewall-rules create allow-ssh-custom-nw --direction=INGRESS --priority=1000 --network=custom-network --action=ALLOW --rules=tcp:22 --source-ranges=0.0.0.0/0
+
+echo "Creating a firewall to ping using internal subnets"
+gcloud compute  firewall-rules create allow-icmp-custom-internal --direction=INGRESS --priority=1000 --network=custom-network --action=ALLOW --rules=icmp --source-ranges=10.2.1.0/24
+
+echo "Create firewall to deny instance1c to ping instance 2"
+gcloud compute  firewall-rules create deny-instance-1c --direction=INGRESS --priority=1000 --network=custom-network --action=DENY --rules=icmp --source-tags=deny-ping --target-tags=allow-ping
