@@ -18,10 +18,10 @@ gcloud compute instances create instance-1a --zone us-central1-a --subnet=subnet
 gcloud compute instances create instance-1b --zone us-central1-a --subnet=subnet-a --machine-type=f1-micro --no-address
 
 # Create instance-1c in subnet-a
-gcloud compute instances create instance-1c --zone us-central1-a --subnet=subnet-a --machine-type=f1-micro
+gcloud compute instances create instance-1c --zone us-central1-a --subnet=subnet-a --machine-type=f1-micro --tags=deny-ping
 
 # Create instance-2 in subnet-b
-gcloud compute instances create instance-2 --zone us-central1-a --subnet=subnet-b --machine-type=f1-micro
+gcloud compute instances create instance-2 --zone us-central1-a --subnet=subnet-b --machine-type=f1-micro --tags=allow-ping
 
 # Create instance-3 in subnet-b
 gcloud compute instances create instance-3 --zone us-central1-a --subnet=subnet-b --machine-type=f1-micro --no-address
