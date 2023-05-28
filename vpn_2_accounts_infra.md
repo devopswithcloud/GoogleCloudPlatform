@@ -1,4 +1,5 @@
 # 1st account
+```bash
 echo Creating Network-1
 gcloud services enable compute.googleapis.com
 gcloud compute networks create network-1 --subnet-mode=custom
@@ -15,11 +16,12 @@ gcloud compute instances create instance-2 --zone=us-central1-b --machine-type=f
 
 gcloud compute addresses create network-1-static-ip --region=us-central1 --network-tier=PREMIUM
 
-
+```
 
 
 
 # 2nd account
+```bash
 gcloud services enable compute.googleapis.com
 gcloud compute networks create network-2 --subnet-mode=custom
 
@@ -34,7 +36,7 @@ gcloud compute instances create instance-3 --zone=us-east1-b --machine-type=f1-m
 gcloud compute instances create instance-4 --zone=us-central1-b --machine-type=f1-micro --subnet=subnet-2b
 
 gcloud compute addresses create network-2-static-ip --region=us-central1 --network-tier=PREMIUM
-
+```
 
 ## Extra subnet
 gcloud compute networks subnets create subnet-1c --network=network-1 --region=us-central1 --range=10.0.3.0/24
