@@ -10,9 +10,9 @@ gcloud compute networks subnets create subnet-1b --network=network-1 --region=us
 
 gcloud compute firewall-rules create allow-ssh-icmp-network-1 --direction=INGRESS --priority=1000 --network=network-1 --action=ALLOW --rules=tcp:22,icmp --source-ranges=0.0.0.0/0
 
-gcloud compute instances create instance-1 --zone=us-west1-b --machine-type=f1-micro --subnet=subnet-1a
+gcloud compute instances create instance-1 --zone=us-west1-b --machine-type=f1-micro --subnet=subnet-1a --no-address
 
-gcloud compute instances create instance-2 --zone=us-central1-b --machine-type=f1-micro --subnet=subnet-1b
+gcloud compute instances create instance-2 --zone=us-central1-b --machine-type=f1-micro --subnet=subnet-1b --no-address
 
 gcloud compute addresses create network-1-static-ip --region=us-central1 --network-tier=PREMIUM
 
@@ -31,9 +31,9 @@ gcloud compute networks subnets create subnet-2b --network=network-2 --region=us
 
 gcloud compute firewall-rules create allow-ssh-icmp-network-2 --direction=INGRESS --priority=1000 --network=network-2 --action=ALLOW --rules=tcp:22,icmp --source-ranges=0.0.0.0/0
 
-gcloud compute instances create instance-3 --zone=us-east1-b --machine-type=f1-micro --subnet=subnet-2a
+gcloud compute instances create instance-3 --zone=us-east1-b --machine-type=f1-micro --subnet=subnet-2a --no-address
 
-gcloud compute instances create instance-4 --zone=us-central1-b --machine-type=f1-micro --subnet=subnet-2b
+gcloud compute instances create instance-4 --zone=us-central1-b --machine-type=f1-micro --subnet=subnet-2b --no-address
 
 gcloud compute addresses create network-2-static-ip --region=us-central1 --network-tier=PREMIUM
 ```
