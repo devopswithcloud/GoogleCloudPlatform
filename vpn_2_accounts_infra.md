@@ -42,7 +42,7 @@ gcloud compute addresses create network-2-static-ip --region=us-central1 --netwo
 gcloud compute networks subnets create subnet-1c --network=network-1 --region=us-central1 --range=10.0.3.0/24
 
 ## Extra instance
-gcloud compute instances create instance-extra --zone=us-central1-a --machine-type=f1-micro --subnet=subnet-1c
+gcloud compute instances create instance-extra --zone=us-central1-a --machine-type=f1-micro --subnet=subnet-1c --no-address
 
 
 ## Extra subnet
