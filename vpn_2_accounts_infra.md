@@ -54,3 +54,6 @@ gcloud compute instances create instance-extra-bgp --zone=us-central1-a --machin
 
 ## new more instance
 gcloud compute instances create instance-extra-bgp-extra --zone=us-west1-b --machine-type=f1-micro --subnet=subnet-1d
+
+## Delete resources 
+
