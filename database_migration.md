@@ -16,6 +16,9 @@ mysql
 # Create a database
 create database emp;
 
+# Switch to the db created
+use emp;
+
 # Create a table
 CREATE TABLE Persons (
     PersonID int,
