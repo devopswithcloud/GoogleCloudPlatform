@@ -60,6 +60,13 @@ vi /etc/mysql/mysql.conf.d/mysqld.cnf
 comment the below line
 #bind-address           = 127.0.0.1
 
+# During the test process, if we get the error , perform the below steps on MYSQL VM(GCE)
+```bash
+# the below is the error
+MySQL binlog is configured incorrectly on the source database. Check that the configuration follows the MySQL documentation.
+```bash
+vi /etc/mysql/mysql.conf.d/mysql.cnf
+
 [mysqld]
 log-bin=mysql-bin
 server-id=1
