@@ -10,6 +10,14 @@ sudo apt update
 sudo apt install mysql-server -y
 sudo mysql_secure_installation
 
+
+Validate ===== y
+Enter Password
+emove anonymous users?  ==== n
+Disallow root login remotely?  ==== n
+Remove test database and access to it? ===== y
+Reload privilege tables now? ===== y
+
 # Enter into mysql terminal 
 mysql
 
@@ -34,11 +42,11 @@ Values("1","Siva","M","Hyderabad","Telangana");
 
 SELECT user,authentication_string,plugin,host FROM mysql.user;
 
-CREATE USER 'siva'@'PUBLICIPOFVM' IDENTIFIED BY 'PASSWORD';
-grant all on *.* to 'siva'@'PUBLICIPOFVM';
+CREATE USER 'siva'@'104.154.172.109' IDENTIFIED BY 'Gcp@20232023';
+grant all on *.* to 'siva'@'104.154.172.109';
 flush privileges;
 
-GRANT ALL PRIVILEGES ON *.* TO 'siva'@'%' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'siva'@'%' IDENTIFIED BY 'Gcp@20232023' WITH GRANT OPTION;
 flush privileges;
 
 
