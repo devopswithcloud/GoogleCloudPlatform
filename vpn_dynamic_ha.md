@@ -66,8 +66,8 @@ gcloud compute firewall-rules create on-prem-allow-internal \
 # Create a firewall rule to allow ssh, rdp, http, icmp to the instances:
 gcloud compute firewall-rules create on-prem-allow-ssh-icmp \
     --network on-prem \
-    --allow tcp:22,icmp
-    --source-ranges 0.0.0.0
+    --allow tcp:22,icmp \
+    --source-ranges 0.0.0.0/0
 ```
 
 ### Create a test instance in network on-prem
