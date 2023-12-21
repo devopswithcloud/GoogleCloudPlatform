@@ -300,7 +300,7 @@ gcloud compute instances create dynamic-instance --zone us-east1-b --subnet dyna
 gcloud compute vpn-tunnels delete on-prem-tunnel0  --region us-central1 --quiet
 gcloud compute vpn-tunnels delete vpc-demo-tunnel1  --region us-central1 --quiet
 gcloud compute vpn-tunnels delete on-prem-tunnel1  --region us-central1 --quiet
-gcloud compute vpn-tunnels delete vpc-demo-tunnel0 --region us-central1 --quiet
+
 
 # Remove BGP peering
 gcloud compute routers remove-bgp-peer vpc-demo-router1 --peer-name bgp-on-prem-tunnel0 --region us-central1
