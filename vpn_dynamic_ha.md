@@ -109,7 +109,7 @@ gcloud compute routers create on-prem-router1 \
     --asn 65002
 ```
 
-# Create two VPN tunnels in GCP VPC
+## Create two VPN tunnels in GCP VPC
 ```bash
 # Create the first VPN tunnels in network vpc-demo:
 gcloud beta compute vpn-tunnels create vpc-demo-tunnel0 \
