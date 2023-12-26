@@ -8,7 +8,7 @@ apt install apache2 -y
 # export PROJECT_ID=$(gcloud config list --format 'value(core.project)')
 
 mkdir /var/www/html/images
-gsutil -m cp -r gs://omega-vector-398906-images/* /var/www/html/images
+gsutil -m cp -r gs://celtic-acumen-406716-gmek/* /var/www/html/images
 
 # Enable mod_headers.c
 sudo a2enmod headers
