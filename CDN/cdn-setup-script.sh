@@ -25,7 +25,7 @@ gcloud compute firewall-rules create health-check-allow --direction=INGRESS --pr
 
 # create CDN demo instance template
 
-gcloud compute instance-templates create cdn-demo-template --machine-type=f1-micro --metadata=startup-script-url=gs://omega-vector-398906-images/website-script/cdn-website-script.sh --tags=http-server --boot-disk-device-name=cdn-demo-template
+gcloud compute instance-templates create cdn-demo-template --machine-type=f1-micro --metadata=startup-script-url=gs://celtic-acumen-406716-gmek/website-script/cdn-website-script.sh --tags=http-server --boot-disk-device-name=cdn-demo-template
 
 
 # create health check and instance groups from cdn demo template
