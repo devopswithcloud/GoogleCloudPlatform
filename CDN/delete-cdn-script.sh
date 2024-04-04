@@ -11,14 +11,13 @@ gcloud compute url-maps delete http-lb --quiet
 
 echo "Deleted Forwarding rules, target http proxy, url map"
 
-# Delete Instance Groups
-gcloud compute instance-groups managed delete australia-southeast1-group --region australia-southeast1 --quiet
-echo "Deleted Instance Groups"
-
 # Delete the backend service and its backends
 gcloud compute backend-services delete http-backend --global --quiet
 echo "Deleted backend service"
 
+# Delete Instance Groups
+gcloud compute instance-groups managed delete australia-southeast1-group --region australia-southeast1 --quiet
+echo "Deleted Instance Groups"
 
 
 # Delete the health check
