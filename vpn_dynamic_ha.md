@@ -260,7 +260,7 @@ gcloud beta compute vpn-tunnels describe on-prem-tunnel1 \
 ### Verify private connectivity over VPN
 ```bash
 gcloud compute ssh on-prem-instance1 --zone us-central1-a
-ping 10.2.1.2 # Ping wont work
+
 ```
 
 ### Global routing with VPN
