@@ -40,6 +40,9 @@ CREATE TABLE Persons (
 INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
 Values("1","Siva","M","Hyderabad","Telangana");
 
+INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
+Values("2","Johb","h","Hyderabad","Telangana");
+
 SELECT user,authentication_string,plugin,host FROM mysql.user;
 
 CREATE USER 'siva'@'104.154.172.109' IDENTIFIED BY 'Gcp@20232023';
@@ -72,4 +75,8 @@ log-bin=mysql-bin
 server-id=1
 
 systemctl restart mysql.service
+
+
+INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
+Values("2","Johb","h","Hyderabad","Telangana");
 ```
