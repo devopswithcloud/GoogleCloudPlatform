@@ -65,7 +65,7 @@ comment the below line
 # the below is the error
 MySQL binlog is configured incorrectly on the source database. Check that the configuration follows the MySQL documentation.
 ```bash
-vi /etc/mysql/mysql.conf.d/mysql.cnf
+vim /etc/mysql/mysql.conf.d/mysqld.cnf 
 
 [mysqld]
 log-bin=mysql-bin
