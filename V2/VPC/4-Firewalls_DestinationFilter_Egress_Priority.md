@@ -115,9 +115,11 @@ After testing, clean up the VMs and firewall rules:
 
 ```bash
 # Delete the VMs
-gcloud compute instances delete vm-allow-google vm-deny-google --zone us-central1-a --quiet
+gcloud compute instances delete vm-allow-google --zone us-central1-a --quiet
 
-gcloud compute instances delete vm-deny-google vm-deny-google --zone us-central1-a --quiet
+gcloud compute instances delete vm-deny-google --zone us-central1-a --quiet
+
+
 
 
 # Delete the firewall rules
