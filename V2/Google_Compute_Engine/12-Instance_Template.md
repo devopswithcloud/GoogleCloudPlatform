@@ -72,7 +72,7 @@
 
 ---
 
-### **2. Create an Instance Template Using gcloud**
+### **2. Create an Instance Template Using Console**
 
 We can create an instance template using the **Google Cloud Console** or via `gcloud` CLI. Here’s how:
 
@@ -89,7 +89,7 @@ We can create an instance template using the **Google Cloud Console** or via `gc
 
 4. **Save and create the template**.
 
-#### **gcloud Command for Instance Template**
+### **3. Create an Instance Template Using gcloud**
 
    ```bash
    gcloud compute instance-templates create i27-managed-instance-template-v1 \
