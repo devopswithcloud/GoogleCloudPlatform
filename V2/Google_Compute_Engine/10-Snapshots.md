@@ -1,0 +1,1 @@
+* Refer video for creating snapshots
