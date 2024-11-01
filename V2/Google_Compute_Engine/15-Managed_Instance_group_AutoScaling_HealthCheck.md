@@ -167,7 +167,7 @@ We can create an instance template using the **Google Cloud Console** or via `gc
    - **Port Number**: `80`.
 10. **Click Create** to finalize the group setup.
 
-#### **gcloud Commands for MIG Configuration**
+### **gcloud Commands for MIG Configuration**
 
 1. **Create the Health Check**:
    ```bash
@@ -244,9 +244,7 @@ After the MIG is set up and tested, you can clean up by deleting all the resourc
 
 3. **Delete the Instance Template**:
    ```bash
-   gcloud compute instance-templates delete i27-managed-instance-template
-
--v1 \
+   gcloud compute instance-templates delete i27-managed-instance-template-v1 \
        --project=criticalproject \
        --quiet \
        --region=us-central1
