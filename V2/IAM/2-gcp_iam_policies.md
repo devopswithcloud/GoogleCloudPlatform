@@ -32,10 +32,11 @@ In Google Cloud Platform (GCP), **policies** are a set of rules that define who 
 ---
 
 ### **Scenario: Managing Access to GCS for a User**
-### Step 1: Get the Dynamic Project ID
-Retrieve the active project ID dynamically from your gcloud configuration:
+
 
 ```bash
+#### Step 0: Get the Dynamic Project ID
+#Retrieve the active project ID dynamically from your gcloud configuration:
 PROJECT_ID=$(gcloud config get-value project)
 
 #### Step 1: User Tries to Access GCS without Appropriate Permissions
