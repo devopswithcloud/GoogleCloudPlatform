@@ -218,7 +218,6 @@ Save these scripts as `script-green.sh` and `script-blue.sh`.
 1. **Create the Unmanaged Instance Group**:
    ```bash
    gcloud compute instance-groups unmanaged create i27-unmig \
-       --project=criticalproject \
        --description="i27 Un Managed Group Example" \
        --zone=us-central1-a
    ```
@@ -226,7 +225,6 @@ Save these scripts as `script-green.sh` and `script-blue.sh`.
 2. **Set the Named Port for the Group**:
    ```bash
    gcloud compute instance-groups unmanaged set-named-ports i27-unmig \
-       --project=criticalproject \
        --zone=us-central1-a \
        --named-ports=i27-web-port:80
    ```
@@ -234,7 +232,6 @@ Save these scripts as `script-green.sh` and `script-blue.sh`.
 3. **Add Instances to the Unmanaged Group**:
    ```bash
    gcloud compute instance-groups unmanaged add-instances i27-unmig \
-       --project=criticalproject \
        --zone=us-central1-a \
        --instances=blue-vm,green-vm
    ```
@@ -252,7 +249,6 @@ For unmanaged instance groups, **health checks** aren’t automatically created 
 1. **Delete the Unmanaged Instance Group**:
    ```bash
    gcloud compute instance-groups unmanaged delete i27-unmig \
-       --project=criticalproject \
        --zone=us-central1-a \
        --quiet
    ```
@@ -260,7 +256,6 @@ For unmanaged instance groups, **health checks** aren’t automatically created 
 2. **Remove Instances from the Unmanaged Instance Group**:
    ```bash
    gcloud compute instance-groups unmanaged remove-instances i27-unmig \
-       --project=criticalproject \
        --zone=us-central1-a \
        --instances=blue-vm,green-vm \
        --quiet
@@ -283,7 +278,6 @@ For unmanaged instance groups, **health checks** aren’t automatically created 
 4. **Delete the Firewall Rule**:
    ```bash
    gcloud compute firewall-rules delete allow-http-unmanaged \
-       --project=criticalproject \
        --quiet
    ```
 
