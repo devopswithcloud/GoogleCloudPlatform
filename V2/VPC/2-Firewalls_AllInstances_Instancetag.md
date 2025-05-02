@@ -39,8 +39,8 @@ gcloud compute instances create instance-1b --zone us-central1-a --subnet=subnet
 # Create instance-1c in subnet-a with tag deny-ping
 gcloud compute instances create instance-1c --zone us-central1-a --subnet=subnet-a --machine-type=e2-medium --tags=deny-ping
 
-# Create instance-2 in subnet-b with tag allow-ping
-gcloud compute instances create instance-2 --zone us-central1-a --subnet=subnet-b --machine-type=e2-medium --tags=allow-ping
+# Create instance-2 in subnet-b with tag secure-vm
+gcloud compute instances create instance-2 --zone us-central1-a --subnet=subnet-b --machine-type=e2-medium --tags=secure-vm
 
 # Create instance-3 in subnet-b (without external IP)
 gcloud compute instances create instance-3 --zone us-central1-a --subnet=subnet-b --machine-type=e2-medium --no-address
@@ -53,10 +53,15 @@ gcloud compute firewall-rules create allow-ssh-custom-nw --direction=INGRESS --p
 echo "Creating a firewall to allow internal ping between subnets"
 gcloud compute firewall-rules create allow-icmp-custom-internal --direction=INGRESS --priority=1000 --network=custom-network --action=ALLOW --rules=icmp --source-ranges=10.2.1.0/24
 
-# Create a firewall rule to deny instance-1c from pinging instance-2 using network tags
+# Create a firewall rule to deny instance-1c to ping instance-2 using network tags
 echo "Creating a firewall to deny instance-1c from pinging instance-2"
-gcloud compute firewall-rules create deny-instance-1c --direction=INGRESS --priority=1000 --network=custom-network --action=DENY --rules=icmp --source-tags=deny-ping --target-tags=allow-ping
+gcloud compute firewall-rules create deny-instance-1c --direction=INGRESS --priority=1000 --network=custom-network --action=DENY --rules=icmp --source-tags=deny-ping --target-tags=secure-vm
+
+# Create a firewall to block subnet-a traffic to instance 3 only
+TASK FOR STUDENT
+
 ```
+
 
 ## Deletion Script:
 
