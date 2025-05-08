@@ -1,4 +1,4 @@
-#Create 3 projects dev-shared-project, prod-shared-project, host-shared-project
+# Inside the host-project
 
 #To create a host-network vpc
 gcloud compute networks create host-network --subnet-mode=custom
