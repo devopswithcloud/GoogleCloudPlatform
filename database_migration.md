@@ -45,13 +45,9 @@ Values("2","Johb","h","Hyderabad","Telangana");
 
 SELECT user,authentication_string,plugin,host FROM mysql.user;
 
-CREATE USER 'siva'@'104.154.172.109' IDENTIFIED BY 'Gcp@20232023';
-grant all on *.* to 'siva'@'104.154.172.109';
+CREATE USER 'siva'@'%' IDENTIFIED BY 'MyOwnPassword!';
+GRANT ALL PRIVILEGES ON emp.* TO 'siva'@'%';
 flush privileges;
-
-GRANT ALL PRIVILEGES ON *.* TO 'siva'@'%' IDENTIFIED BY 'Gcp@20232023' WITH GRANT OPTION;
-flush privileges;
-
 
 # Try to connect to mysql instance from anywhere 
 mysql -u siva -h PUBLICIPOFVM -p
