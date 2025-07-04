@@ -1,113 +1,179 @@
-# Create Database Migration
 
+## Step-by-Step Instructions
 
-## Create and connect  Onprim Mysql
+### Step 1. Install MySQL Server
+
 ```bash
-gcloud compute instances create onprim-mysql-new --create-disk=auto-delete=yes,boot=yes,image=projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20211115 --zone us-central1-a
-
-# Perform the following actions to install mysql
 sudo apt update
 sudo apt install mysql-server -y
+````
+
+---
+
+### Step 2. Secure MySQL (Optional but Recommended)
+
+```bash
 sudo mysql_secure_installation
-
-
-Validate ===== y
-Enter Password
-emove anonymous users?  ==== n
-Disallow root login remotely?  ==== n
-Remove test database and access to it? ===== y
-Reload privilege tables now? ===== y
-
-# Enter into mysql terminal 
-mysql
-
-# Create a database
-create database emp;
-
-# Switch to the db created
-use emp;
-
-# Create a table
-CREATE TABLE Persons (
-    PersonID int,
-    LastName varchar(255),
-    FirstName varchar(255),
-    Address varchar(255),
-    City varchar(255)
-);
-
-# Insert into tables
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("1","Siva","M","Hyderabad","Telangana");
-
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("2","Johb","h","Hyderabad","Telangana");
-
-SELECT user,authentication_string,plugin,host FROM mysql.user;
-
-CREATE USER 'siva'@'%' IDENTIFIED BY 'MyOwnPassword!';
-GRANT ALL PRIVILEGES ON emp.* TO 'siva'@'%';
-flush privileges;
-
-# Try to connect to mysql instance from anywhere 
-mysql -u siva -h PUBLICIPOFVM -p
-
-# If we get below error : 
-ERROR 2003 (HY000): Can't connect to MySQL server on '34.125.93.52:3306' (111)
-
-vi /etc/mysql/mysql.conf.d/mysqld.cnf
-comment the below line
-#bind-address           = 127.0.0.1
-
-# During the test process, if we get the error , perform the below steps on MYSQL VM(GCE)
-```bash
-# the below is the error
-MySQL binlog is configured incorrectly on the source database. Check that the configuration follows the MySQL documentation.
-```bash
-vim /etc/mysql/mysql.conf.d/mysqld.cnf 
-
-[mysqld]
-log-bin=mysql-bin
-server-id=1
-
-systemctl restart mysql.service
-
-
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("2","Johb","h","Hyderabad","Telangana");
 ```
 
+You can skip this or configure:
 
-## Insert Queries
+* Press `Enter` to skip root password setup (or set if prompted)
+* Remove anonymous users → Yes
+* Disallow remote root login → No
+* Remove test DB → Yes
+* Reload privilege tables → Yes
+
+---
+
+### Step 3. Log in to MySQL as Root
+
 ```bash
-# Insert into tables
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("1","Siva","M","Hyderabad","Telangana");
+sudo mysql
+```
 
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("2","Johb","h","Hyderabad","Telangana");
+Then inside the MySQL shell, run:
 
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("3","Doe","J","Hyderabad","Telangana");
+```sql
+-- Create user 'siva' with password
+CREATE USER 'siva'@'%' IDENTIFIED BY 'YOUR_OWN_PASSWORD';
 
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("4","Smith","K","Hyderabad","Telangana");
+-- Grant all permissions
+GRANT ALL PRIVILEGES ON *.* TO 'siva'@'%' WITH GRANT OPTION;
 
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("5","Doe","J","Hyderabad","Telangana");
+-- Save changes
+FLUSH PRIVILEGES;
 
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("6","Smith","K","Hyderabad","Telangana");
+-- Exit MySQL
+EXIT;
+```
 
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("7","Doe","J","Hyderabad","Telangana");
+---
 
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("8","Smith","K","Hyderabad","Telangana");
+### Step 4. Allow Remote Connections
 
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("9","Doe","J","Hyderabad","Telangana");
+Edit the MySQL config:
 
-INSERT INTO Persons (PersonID, LastName, FirstName, Address, City)
-Values("10","Smith","K","Hyderabad","Telangana");
+```bash
+sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+```
+
+Look for:
+
+```
+bind-address = 127.0.0.1
+```
+
+Change it to:
+
+```
+bind-address = 0.0.0.0
+```
+
+Save and exit: `Ctrl+O`, `Enter`, `Ctrl+X`
+
+---
+
+### Step 5. Restart MySQL
+
+```bash
+sudo systemctl restart mysql
+```
+
+---
+
+### Step 6. Allow Port 3306 in Cloud Firewall
+
+Open **port 3306** to all IPs (`0.0.0.0/0`) in:
+
+* GCP → VPC Network → Firewall rules
+* AWS → Security Groups
+* Azure → NSG (Network Security Groups)
+
+---
+
+### Step 7. Test Remote Connection
+
+From your local or any remote machine:
+
+```bash
+mysql -u siva -p -h <your-server-ip>
+# Enter password: YOUR_OWN_PASSWORD
+```
+
+---
+
+### Step 8. Create Database, Table & Insert Records
+
+#### 🔹 Log in to MySQL as User `siva`
+
+```bash
+mysql -u siva -p -h <your-server-ip>
+```
+
+#### 🔹 Create a Database
+
+```sql
+CREATE DATABASE i27academy;
+```
+
+#### 🔹 Use the Database
+
+```sql
+USE i27academy;
+```
+
+#### 🔹 Create a Table
+
+```sql
+CREATE TABLE students (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(100),
+  course VARCHAR(100)
+);
+```
+
+#### 🔹 Insert Records
+
+```sql
+INSERT INTO students (name, email, course)
+VALUES 
+('John Doe', 'john@example.com', 'DevOps'),
+('Sita Rani', 'sita@example.com', 'GCP'),
+('Ravi Kumar', 'ravi@example.com', 'Terraform');
+```
+
+#### 🔹 View All Records
+
+```sql
+SELECT * FROM students;
+```
+
+Expected Output:
+
+```
++----+------------+------------------+------------+
+| id | name       | email            | course     |
++----+------------+------------------+------------+
+|  1 | John Doe   | john@example.com | DevOps     |
+|  2 | Sita Rani  | sita@example.com | GCP        |
+|  3 | Ravi Kumar | ravi@example.com | Terraform  |
++----+------------+------------------+------------+
+```
+
+---
+### Step 9. Implement DMS
+
+### Step 10: Few more records after migation 
+* The below records will be useful to test read and write transcations after dms is completed
+
+```sql
+INSERT INTO students (name, email, course)
+VALUES 
+('Amit Sharma', 'amit.sharma@example.com', 'Docker & Kubernetes'),
+('Priya Nair', 'priya.nair@example.com', 'Cloud Security'),
+('Rahul Verma', 'rahul.verma@example.com', 'Azure DevOps'),
+('Neha Singh', 'neha.singh@example.com', 'Python for Automation'),
+('Karthik Reddy', 'karthik.reddy@example.com', 'Linux Fundamentals');
 ```
