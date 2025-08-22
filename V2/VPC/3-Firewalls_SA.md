@@ -17,6 +17,10 @@ echo "Subnet-a Created Successfully......."
 # Create Subnet-b in custom VPC
 gcloud compute networks subnets create subnet-b --network custom-network --region us-central1 --range 10.2.2.0/24
 echo "Subnet-b Created Successfully......."
+
+# Create a firewall rule to allow SSH access
+echo "Creating a firewall for SSH"
+gcloud compute firewall-rules create allow-ssh-custom-nw --direction=INGRESS --priority=1000 --network=custom-network --action=ALLOW --rules=tcp:22 --source-ranges=0.0.0.0/0
 ```
 
 ---
@@ -154,4 +158,5 @@ Alternatively, you can delete the firewall rule from the **Google Cloud Console 
 ---
 
 This complete flow sets up a VM, installs a web server, restricts external HTTP access initially, adds a firewall rule to allow HTTP access, and cleans up resources by deleting the VM and firewall rule. The custom VPC and SSH firewall rule are retained for future use.
+
 
