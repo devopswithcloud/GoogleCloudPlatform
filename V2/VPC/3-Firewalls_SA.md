@@ -3,9 +3,21 @@
 
 ---
 
-### Step 1: Create a Custom VPC and Subnets (Already Done)
+### Step 1: Create a Custom VPC and Subnets
 
-If not already created, refer to the previous steps to create a custom VPC and subnets.
+```bash
+# Create a custom VPC
+gcloud compute networks create custom-network --subnet-mode=custom
+echo "Network Created Successfully........"
+
+# Create Subnet-a in custom VPC
+gcloud compute networks subnets create subnet-a --network custom-network --region us-central1 --range 10.2.1.0/24
+echo "Subnet-a Created Successfully......."
+
+# Create Subnet-b in custom VPC
+gcloud compute networks subnets create subnet-b --network custom-network --region us-central1 --range 10.2.2.0/24
+echo "Subnet-b Created Successfully......."
+```
 
 ---
 
@@ -142,3 +154,4 @@ Alternatively, you can delete the firewall rule from the **Google Cloud Console 
 ---
 
 This complete flow sets up a VM, installs a web server, restricts external HTTP access initially, adds a firewall rule to allow HTTP access, and cleans up resources by deleting the VM and firewall rule. The custom VPC and SSH firewall rule are retained for future use.
+
