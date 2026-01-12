@@ -16,6 +16,10 @@
 
 ### **Step-by-Step Guide for Setting Up the Managed Instance Group (MIG)**
 
+### **0. Export Project ID**
+```bash
+export PROJECT_ID=$(gcloud config get-value project)
+```
 ---
 
 ### **1. Create the Startup Script (startupscript-v1.sh)**
@@ -185,11 +189,11 @@ We can create an instance template using the **Google Cloud Console** or via `gc
    ```bash
    gcloud beta compute instance-groups managed create i27-mig-v1 \
        --base-instance-name=i27-mig-v1 \
-       --template=projects/criticalproject/regions/us-central1/instanceTemplates/i27-managed-instance-template-v1 \
+       --template=projects/$PROJECT_ID/regions/us-central1/instanceTemplates/i27-managed-instance-template-v1 \
        --size=1 \
        --zone=us-central1-c \
        --default-action-on-vm-failure=repair \
-       --health-check=projects/criticalproject/global/healthChecks/i27-mig-health-check \
+       --health-check=projects/$PROJECT_ID/global/healthChecks/i27-mig-health-check \
        --initial-delay=300 \
        --no-force-update-on-repair \
        --standby-policy-mode=manual \
@@ -261,6 +265,7 @@ After the MIG is set up and tested, you can clean up by deleting all the resourc
 - **Default Failure Action**: **Repair Instance**
 - **Autohealing**: **i27-mig-health-check** with HTTP on path `/`.
 - **Port Mapping**: `i27-web-port` to port `80`.
+
 
 
 
