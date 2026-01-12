@@ -124,7 +124,6 @@ We can create an instance template using the **Google Cloud Console** or via `gc
 
    ```bash
    gcloud compute firewall-rules create allow-http-server \
-       --project=criticalproject \
        --direction=INGRESS \
        --priority=1000 \
        --network=default \
@@ -270,4 +269,5 @@ After the MIG is set up and tested, you can clean up by deleting all the resourc
 - **Default Failure Action**: **Repair Instance**
 - **Autohealing**: **i27-mig-health-check** with HTTP on path `/`.
 - **Port Mapping**: `i27-web-port` to port `80`.
+
 
