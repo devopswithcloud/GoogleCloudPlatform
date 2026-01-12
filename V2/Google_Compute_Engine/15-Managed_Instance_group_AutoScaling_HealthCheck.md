@@ -171,7 +171,6 @@ We can create an instance template using the **Google Cloud Console** or via `gc
 1. **Create the Health Check**:
    ```bash
    gcloud beta compute health-checks create http i27-mig-health-check \
-       --project=criticalproject \
        --port=80 \
        --request-path=/ \
        --proxy-header=NONE \
@@ -185,7 +184,6 @@ We can create an instance template using the **Google Cloud Console** or via `gc
 2. **Create the Managed Instance Group**:
    ```bash
    gcloud beta compute instance-groups managed create i27-mig-v1 \
-       --project=criticalproject \
        --base-instance-name=i27-mig-v1 \
        --template=projects/criticalproject/regions/us-central1/instanceTemplates/i27-managed-instance-template-v1 \
        --size=1 \
@@ -201,7 +199,6 @@ We can create an instance template using the **Google Cloud Console** or via `gc
 3. **Set Autoscaling Configuration**:
    ```bash
    gcloud beta compute instance-groups managed set-autoscaling i27-mig-v1 \
-       --project=criticalproject \
        --zone=us-central1-c \
        --mode=on \
        --min-num-replicas=2 \
@@ -215,7 +212,6 @@ We can create an instance template using the **Google Cloud Console** or via `gc
 4. **Set Named Port for the Instance Group**:
    ```bash
    gcloud compute instance-groups set-named-ports i27-mig-v1 \
-       --project=criticalproject \
        --zone=us-central1-c \
        --named-ports=i27-web-port:80
    ```
@@ -229,7 +225,6 @@ After the MIG is set up and tested, you can clean up by deleting all the resourc
 1. **Delete the Managed Instance Group (MIG)**:
    ```bash
    gcloud beta compute instance-groups managed delete i27-mig-v1 \
-       --project=criticalproject \
        --zone=us-central1-c \
        --quiet
    ```
@@ -237,14 +232,12 @@ After the MIG is set up and tested, you can clean up by deleting all the resourc
 2. **Delete the Health Check**:
    ```bash
    gcloud beta compute health-checks delete i27-mig-health-check \
-       --project=criticalproject \
        --quiet
    ```
 
 3. **Delete the Instance Template**:
    ```bash
    gcloud compute instance-templates delete i27-managed-instance-template-v1 \
-       --project=criticalproject \
        --quiet \
        --region=us-central1
    ```
@@ -252,7 +245,6 @@ After the MIG is set up and tested, you can clean up by deleting all the resourc
 4. **Delete the Firewall Rule**:
    ```bash
    gcloud compute firewall-rules delete allow-http-server \
-       --project=criticalproject \
        --quiet
    ```
 
@@ -269,5 +261,6 @@ After the MIG is set up and tested, you can clean up by deleting all the resourc
 - **Default Failure Action**: **Repair Instance**
 - **Autohealing**: **i27-mig-health-check** with HTTP on path `/`.
 - **Port Mapping**: `i27-web-port` to port `80`.
+
 
 
