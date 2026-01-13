@@ -21,7 +21,10 @@ This script configures the core infrastructure for a Google Cloud-based global l
 9. **Static Global IP Address** (`i27-global-lb-ip`): Reserves a global IP address to use with the load balancer.
 
 ---
-
+### **0. Export Project ID**
+```bash
+export PROJECT_ID=$(gcloud config get-value project)
+``` 
 ### 1. Create the VPC Network
 ```bash
 gcloud compute networks create i27-global-lb-vpc --subnet-mode=custom
@@ -120,7 +123,7 @@ gcloud compute health-checks create http i27-global-lb-health-check \
 ```bash
 gcloud compute instance-groups managed create i27-global-lb-central-mig \
     --base-instance-name=i27-global-lb-central \
-    --template=projects/infra-radius-438300-r7/regions/us-central1/instanceTemplates/i27-global-lb-central-instance-template \
+    --template=projects/$PROJECT_ID/regions/us-central1/instanceTemplates/i27-global-lb-central-instance-template \
     --size=2 \
     --zones=us-central1-c,us-central1-f \
     --health-check=i27-global-lb-health-check \
@@ -131,7 +134,7 @@ gcloud compute instance-groups managed create i27-global-lb-central-mig \
 ```bash
 gcloud compute instance-groups managed create i27-global-lb-singapore-mig \
     --base-instance-name=i27-global-lb-singapore \
-    --template=projects/infra-radius-438300-r7/regions/asia-southeast1/instanceTemplates/i27-global-lb-singapore-instance-template \
+    --template=projects/$PROJECT_ID/regions/asia-southeast1/instanceTemplates/i27-global-lb-singapore-instance-template \
     --size=2 \
     --zones=asia-southeast1-a,asia-southeast1-b \
     --health-check=i27-global-lb-health-check \
@@ -164,3 +167,4 @@ gcloud compute addresses create i27-global-lb-ip --global
 ---
 
 > **Next Steps**: With the core infrastructure now configured, proceed with setting up the load balancer, backend service, URL map, and forwarding rules directly in the Google Cloud Console. This approach allows for a hands-on experience with load balancer configurations and helps ensure each component is correctly associated. 
+
