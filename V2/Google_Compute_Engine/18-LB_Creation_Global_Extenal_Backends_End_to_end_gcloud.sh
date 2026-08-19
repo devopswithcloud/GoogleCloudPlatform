@@ -41,6 +41,14 @@
 
 # Begin resource creation
 
+# Dynamically fetch the currently configured GCP project ID
+PROJECT_ID=$(gcloud config get-value project 2>/dev/null)
+if [ -z "$PROJECT_ID" ]; then
+    echo "ERROR: No GCP project is set. Run 'gcloud config set project <PROJECT_ID>' first."
+    exit 1
+fi
+echo "Using project: $PROJECT_ID"
+
 # Create the VPC Network
 gcloud compute networks create i27-global-lb-vpc --subnet-mode=custom
 echo "VPC Network created."
@@ -121,18 +129,18 @@ echo "Global health check created."
 
 gcloud compute instance-groups managed create i27-global-lb-central-mig \
     --base-instance-name=i27-global-lb-central \
-    --template=projects/infra-radius-438300-r7/regions/us-central1/instanceTemplates/i27-global-lb-central-instance-template \
-    --size=2 \
-    --zones=us-central1-c,us-central1-f \
+    --template=projects/$PROJECT_ID/regions/us-central1/instanceTemplates/i27-global-lb-central-instance-template \
+    --size=1 \
+    --zones=us-central1-c\
     --health-check=i27-global-lb-health-check \
     --initial-delay=300
 echo "Managed instance group in us-central1 created."
 
 gcloud compute instance-groups managed create i27-global-lb-singapore-mig \
     --base-instance-name=i27-global-lb-singapore \
-    --template=projects/infra-radius-438300-r7/regions/asia-southeast1/instanceTemplates/i27-global-lb-singapore-instance-template \
-    --size=2 \
-    --zones=asia-southeast1-a,asia-southeast1-b \
+    --template=projects/$PROJECT_ID/regions/asia-southeast1/instanceTemplates/i27-global-lb-singapore-instance-template \
+    --size=1 \
+    --zones=asia-southeast1-a \
     --health-check=i27-global-lb-health-check \
     --initial-delay=300
 echo "Managed instance group in asia-southeast1 created."
